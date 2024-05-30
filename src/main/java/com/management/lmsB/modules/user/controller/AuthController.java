@@ -12,6 +12,7 @@ import com.management.lmsB.modules.user.security.LoginDto;
 import com.management.lmsB.modules.user.security.UserRequestDTO;
 
 @AllArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {

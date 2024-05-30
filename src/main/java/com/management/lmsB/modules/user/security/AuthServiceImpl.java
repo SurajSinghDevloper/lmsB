@@ -62,18 +62,23 @@ public class AuthServiceImpl implements AuthService{
 	@Override
 	public String save(UserRequestDTO userRequestDto) throws Exception {
 		Users user = new Users();
-		if(userRequestDto.getEmail()==null || userRequestDto.getName()==null || userRequestDto.getPassword()==null || userRequestDto.getUsername()==null )
+		if(userRequestDto.getEmail()==null || userRequestDto.getFirstName()==null || userRequestDto.getLastName()==null || userRequestDto.getPassword()==null 
+				|| userRequestDto.getMobile()==null|| userRequestDto.getDob()==null)
 		{
 			throw new Exception("No_Records_Found");
 		}
 //		Optional<Role> role=roleDao.findRoleName(userRequestDto.getRole());
 		
 		Role setRole = roleDao.findByName("ROLE_USER");
-		
+		user.setFirstName(userRequestDto.getFirstName());
+		user.setLastName(userRequestDto.getLastName());
 		user.setEmail(userRequestDto.getEmail());
-		user.setName(userRequestDto.getName());
+		user.setName(userRequestDto.getFirstName()+" "+userRequestDto.getLastName());
 		user.setPassword(bCryptPasswordEncoder.encode(userRequestDto.getPassword()));
-		user.setUsername(userRequestDto.getUsername());
+		user.setMobile(userRequestDto.getMobile());
+		user.setDob(userRequestDto.getDob());
+		user.setAddress(userRequestDto.getAddress());
+		user.setUsername(userRequestDto.getEmail());
 		Set<Role> roles =new HashSet<>();
 		roles.add(setRole);
 		user.setRoles(roles);

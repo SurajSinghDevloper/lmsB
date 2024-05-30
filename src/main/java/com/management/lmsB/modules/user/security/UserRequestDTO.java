@@ -1,8 +1,6 @@
 package com.management.lmsB.modules.user.security;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,10 +11,14 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class UserRequestDTO {
-
+	
+	private String firstName;
+	private String lastName;
 	private String email;
-	private String name;
 	private String password;
+	private String mobile;
+	private String dob;
+	private String address;
 	private String username;
 
 	
