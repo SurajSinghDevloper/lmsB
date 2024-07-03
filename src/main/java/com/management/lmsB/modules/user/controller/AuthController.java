@@ -22,6 +22,19 @@ public class AuthController {
 	// Build Login REST API
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+		loginDto.setLoginFor("Adminstrative");
+		JwtAuthResponse response = authService.login(loginDto);
+		if (response != null) {
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Invalid Crendentals ..... ", HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@PostMapping("/student/login")
+	public ResponseEntity<?> studentlogin(@RequestBody LoginDto loginDto) {
+		loginDto.setLoginFor("Student");
 		JwtAuthResponse response = authService.login(loginDto);
 		if (response != null) {
 			return new ResponseEntity<>(response, HttpStatus.OK);

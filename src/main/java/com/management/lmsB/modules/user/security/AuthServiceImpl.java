@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.management.lmsB.modules.admission.model.AdmissionRegistration;
+import com.management.lmsB.modules.admission.repo.AddmissionRegistrationRepo;
 import com.management.lmsB.modules.user.models.Role;
 import com.management.lmsB.modules.user.models.Users;
 import com.management.lmsB.modules.user.repositories.RoleRepository;
@@ -37,6 +39,9 @@ public class AuthServiceImpl implements AuthService{
     private RoleRepository roleDao;
     
     @Autowired
+    private AddmissionRegistrationRepo studentRepo;
+    
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     
     @Override
@@ -47,17 +52,26 @@ public class AuthServiceImpl implements AuthService{
                 loginDto.getPassword()
         ));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+        SecurityContextHolder.getContext().setAuthentication(authentication);        
+        JwtAuthResponse response = new JwtAuthResponse();
         String token = jwtTokenProvider.generateToken(authentication);
         
-        Users user = userRepository.findByEmail(loginDto.getEmail());
-        JwtAuthResponse response = new JwtAuthResponse();
-        response.setAccessToken(token);
-        response.setUser(user);
+        if(loginDto.getLoginFor().equals("Adminstrative")) {	
+        	Users user = userRepository.findByEmail(loginDto.getEmail());
+        	response.setAccessToken(token);
+            response.setUser(user);
+        }
+        if(loginDto.getLoginFor().equals("Student")) {
+        	AdmissionRegistration user = studentRepo.findByEmail(loginDto.getEmail());
+        	response.setAccessToken(token);
+            response.setStudent(user);
+        }
+        
 
         return response;
     }
+    
+    
 
 	@Override
 	public String save(UserRequestDTO userRequestDto) throws Exception {

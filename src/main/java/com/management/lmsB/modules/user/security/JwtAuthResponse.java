@@ -1,5 +1,6 @@
 package com.management.lmsB.modules.user.security;
 
+import com.management.lmsB.modules.admission.model.AdmissionRegistration;
 import com.management.lmsB.modules.user.models.Users;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +15,6 @@ import lombok.Setter;
 public class JwtAuthResponse {
 	  private Users user;
 	private String accessToken;
-  
+	private AdmissionRegistration student;
   
 }
