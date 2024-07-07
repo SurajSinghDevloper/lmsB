@@ -20,7 +20,7 @@ public class AuthController {
 	private AuthService authService;
 
 	// Build Login REST API
-	@PostMapping("/login")
+	@PostMapping("/lmsb/login")
 	public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
 		loginDto.setLoginFor("Adminstrative");
 		JwtAuthResponse response = authService.login(loginDto);
@@ -32,7 +32,7 @@ public class AuthController {
 
 	}
 	
-	@PostMapping("/student/login")
+	@PostMapping("/lmsb/student/login")
 	public ResponseEntity<?> studentlogin(@RequestBody LoginDto loginDto) {
 		loginDto.setLoginFor("Student");
 		JwtAuthResponse response = authService.login(loginDto);
@@ -45,7 +45,7 @@ public class AuthController {
 	}
 
 	// Building Post API
-	@PostMapping("/signup")
+	@PostMapping("/lmsb/signup")
 	public ResponseEntity<?> signup(@RequestBody UserRequestDTO userRequestdto) {
 		String successMessage = "";
 		try {

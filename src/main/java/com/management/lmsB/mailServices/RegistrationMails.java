@@ -21,16 +21,14 @@ public class RegistrationMails {
 	@Autowired
 	private PasswordGenerator pass;
 
-	public String sendCompleteRegistrationEmail(String email) {
+	public String sendCompleteRegistrationEmail(String email,String userPassword) {
 		try {
 			MimeMessage message = javaMailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			String userPassword = pass.generateUniquePassword();
-
 			helper.setTo(email);
 			helper.setSubject("Complete Your Registration");
 
-			String registrationLink = "http://localhost/student-pannel/complete-registration"; 
+			String registrationLink = "http://localhost:5173/authentication"; 
 
 			String htmlContent = "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n"
 					+ "    <title>Complete Your Registration</title>\r\n" + "    <style>\r\n"

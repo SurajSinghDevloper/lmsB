@@ -23,7 +23,11 @@ public class AdmissionRegistrationController {
 	        String result = registrationService.newRegistration(dto);
 	        if (Results.SUCCESS.toString().equals(result)) {
 	            return ResponseEntity.status(HttpStatus.CREATED).body("Registration successful. Please check your email to complete the process.");
-	        } else {
+	        }
+	        else if(result.equals(Results.ALLREADY_EXIST.toString())) {
+	        	return ResponseEntity.status(HttpStatus.CONFLICT).body("All ready registerd ! Please Login");
+	        }
+	        else {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Registration failed. Please try again.");
 	        }
 	    }

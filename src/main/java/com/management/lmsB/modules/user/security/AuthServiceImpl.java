@@ -62,9 +62,9 @@ public class AuthServiceImpl implements AuthService{
             response.setUser(user);
         }
         if(loginDto.getLoginFor().equals("Student")) {
-        	AdmissionRegistration user = studentRepo.findByEmail(loginDto.getEmail());
+        	Users  user = userRepository.findByEmail(loginDto.getEmail());
         	response.setAccessToken(token);
-            response.setStudent(user);
+            response.setUser(user);
         }
         
 
